@@ -13,12 +13,13 @@ public class CiCdApplication  {
 
 
 	@GetMapping("/greetings")
-	public void hel(){
+	public void greetings(){
 		System.out.println("hello");
 	}
+
 	@GetMapping("/greetings/{name}")
 	public String greetings(@PathVariable("name") String name){
-		return "Hello " + name + " Congratulations you have successfully completed";
+		return "Hello "+name + " Congratulations you have successfully completed jenkins CI/CD Demo ..!";
 	}
 
 	public static void main(String[] args) {
