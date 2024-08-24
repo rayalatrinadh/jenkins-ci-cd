@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CiCdApplication  {
 
 
-	@GetMapping("/greetings")
+	/*@GetMapping("/greetings")
 	public void greetings(){
 		System.out.println("hello");
 	}
-
+*/
 	@GetMapping("/greetings/{name}")
 	public String greetings(@PathVariable("name") String name){
 		return "Hello "+name + " Congratulations you have successfully completed jenkins CI/CD Demo ..!";
