@@ -19,7 +19,7 @@ public class CiCdApplication  {
 */
 	@GetMapping("/greetings/{name}")
 	public String greetings(@PathVariable("name") String name){
-		return "Hello "+name + " Congratulations you have successfully completed jenkins CI/CD Demo ..!";
+		return "Hello "+name + " fake commit Congratulations you have successfully completed jenkins CI/CD Demo ..!";
 	}
 
 	public static void main(String[] args) {
