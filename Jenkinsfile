@@ -39,6 +39,7 @@ pipeline {
 
         stage("Deploy Image to Docker Hub") {
             steps {
+                bat 'docker run -d -p 9098:8086 ${imageName}:${imageTag}'
                 withCredentials([string(credentialsId: 'wa', variable: 'wa')]) {
                     script {
                         def imageName = "${DOCKER_USER}/${APP_NAME}"
