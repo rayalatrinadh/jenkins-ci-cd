@@ -40,9 +40,9 @@ pipeline {
        stage("Deploy Image to Docker Hub") {
            steps {
                script {
-                   def imageName = "${DOCKER_USER}/${APP_NAME}".toLowerCase()
+                   def imageName = "${DOCKER_USER}/${APP_NAME}".toLowerCase()  // Ensure imageName is lowercase
                    def imageTag = "${RELEASE_NO}-${BUILD_NUMBER}"
-                   bat "docker run -d -p 9098:8086 ${imageName}:${imageTag}"
+                   bat "docker run -d -p 9098:8086 ${imageName}:${imageTag}"  // Use lowercase imageName
                }
                withCredentials([string(credentialsId: 'wa', variable: 'wa')]) {
                    bat """
@@ -52,6 +52,7 @@ pipeline {
                }
            }
        }
+
 
 
     }
