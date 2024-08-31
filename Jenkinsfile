@@ -29,7 +29,8 @@ pipeline {
         stage("Build Image") {
             steps {
                 script {
-                    def imageName = "${DOCKER_USER}/${APP_NAME}".toLowerCase()
+                    // Concatenation done in script block
+                    def imageName = "${DOCKER_USER}/${APP_NAME}"
                     def imageTag = "${RELEASE_NO}-${BUILD_NUMBER}"
                     bat "docker build -t ${imageName}:${imageTag} ."
                 }
@@ -38,14 +39,10 @@ pipeline {
 
         stage("Deploy Image to Docker Hub") {
             steps {
-                script {
-                    def imageName = "${DOCKER_USER}/${APP_NAME}".toLowerCase()
-                    def imageTag = "${RELEASE_NO}-${BUILD_NUMBER}"
-                    // Use double quotes around variables to ensure proper substitution
-                    bat "docker run -d -p 9084:8086 ${imageName}:${imageTag}"
-                }
                 withCredentials([string(credentialsId: 'wa', variable: 'wa')]) {
                     script {
+                        def imageName = "${DOCKER_USER}/${APP_NAME}"
+                        def imageTag = "${RELEASE_NO}-${BUILD_NUMBER}"
                         bat """
                             echo ${wa} | docker login -u trinadhrayala --password-stdin
                             docker push ${imageName}:${imageTag}
