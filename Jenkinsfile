@@ -37,21 +37,22 @@ pipeline {
             }
         }
 
-        stage("Deploy Image to Docker Hub") {
-            steps {
-                bat 'docker run -d -p 9098:8086 ${imageName}:${imageTag}'
-                withCredentials([string(credentialsId: 'wa', variable: 'wa')]) {
-                    script {
-                        def imageName = "${DOCKER_USER}/${APP_NAME}"
-                        def imageTag = "${RELEASE_NO}-${BUILD_NUMBER}"
-                        bat """
-                            echo ${wa} | docker login -u trinadhrayala --password-stdin
-                            docker push ${imageName}:${imageTag}
-                        """
-                    }
-                }
-            }
-        }
+       stage("Deploy Image to Docker Hub") {
+           steps {
+               script {
+                   def imageName = "${DOCKER_USER}/${APP_NAME}".toLowerCase()
+                   def imageTag = "${RELEASE_NO}-${BUILD_NUMBER}"
+                   bat "docker run -d -p 9098:8086 ${imageName}:${imageTag}"
+               }
+               withCredentials([string(credentialsId: 'wa', variable: 'wa')]) {
+                   bat """
+                       echo ${wa} | docker login -u trinadhrayala --password-stdin
+                       docker push ${imageName}:${imageTag}
+                   """
+               }
+           }
+       }
+
 
     }
 
