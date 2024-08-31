@@ -20,12 +20,14 @@ pipeline{
             }
         }
 
-        stage("Deploy War to Container"){
-            steps{
-                deploy adapters: [tomcat9(credentialsId: 'c5445457-d129-4abe-99ba-1e9715e48a5b', path: '', url: 'http://localhost:9090/')], contextPath: 'jenkinsCiCd', war: '**/*.war'
-            }
 
-        }
+
+//         stage("Deploy War to Container"){
+//             steps{
+//                 deploy adapters: [tomcat9(credentialsId: 'c5445457-d129-4abe-99ba-1e9715e48a5b', path: '', url: 'http://localhost:9090/')], contextPath: 'jenkinsCiCd', war: '**/*.war'
+//             }
+//         }
+
 
     }
 
